@@ -1,0 +1,1 @@
+# thrivedesk-core
