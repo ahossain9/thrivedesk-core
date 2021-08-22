@@ -1,0 +1,13 @@
+.elementor-element .icon {
+    position: relative;
+}
+
+.elementor-element .icon .thrivedesk-icon::after {
+    content: "THRIVEDESK";
+    font-size: 10px;
+    opacity: 0.4;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-family: 'Roboto';
+}
