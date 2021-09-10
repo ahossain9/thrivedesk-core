@@ -527,6 +527,17 @@ class Advanced_Tab extends Widget_Base {
 		);
 
 		$this->add_control(
+			'nav_title_hover_color',
+			[
+				'label' => __( 'Hover Color', 'thrivedesk' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title:hover h4, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title:hover h4' => 'color: {{VALUE}};'
+				]
+			]
+		);
+
+		$this->add_control(
 			'nav_title_active_color',
 			[
 				'label' => __( 'Active Color', 'thrivedesk' ),
@@ -578,6 +589,17 @@ class Advanced_Tab extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'nav_desc_hover_color',
+			[
+				'label' => __( 'Hover Color', 'thrivedesk' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title:hover .td-tab__title-desc, {{WRAPPER}} .td-tabs .td-tabs__content > .td-tab__title:hover .td-tab__title-desc' => 'color: {{VALUE}};'
+				]
+			]
+		);
+		
 		$this->add_control(
 			'nav_desc_active_color',
 			[
@@ -815,6 +837,18 @@ class Advanced_Tab extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .td-tabs .td-tab__title-icon>svg' => 'fill: {{VALUE}};',
 					'{{WRAPPER}} .td-tabs .td-tab__title-icon>i' => 'color: {{VALUE}};'
+				]
+			]
+		);
+
+		$this->add_control(
+			'nav_icon_hover_color',
+			[
+				'label' => __( 'Hover Color', 'thrivedesk' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .td-tabs .td-tab__title:hover .td-tab__title-icon>svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .td-tabs .td-tab__title:hover .td-tab__title-icon>i' => 'color: {{VALUE}};'
 				]
 			]
 		);
