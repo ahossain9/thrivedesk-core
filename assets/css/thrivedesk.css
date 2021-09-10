@@ -37,10 +37,12 @@
 
 .td-tabs.enable-accordian .td-tab__title .td-tab__title-text h4 {
     margin-bottom: 0;
+    transition: 0.5s;
 }
 
 .td-tabs .td-tab__title .td-tab__title-text h4 {
     margin-top: 0;
+    transition: 0.5s;
 }
 
 .td-tabs.enable-accordian .td-tab__title h4 .fa-angle-up,
@@ -63,7 +65,8 @@
 }
 
 .td-tabs .td-tab__title-icon>i {
-    display: inline-block
+    display: inline-block;
+    transition: 0.5s;
 }
 
 .td-tabs__content>.td-tab__title {
