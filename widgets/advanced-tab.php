@@ -2,7 +2,6 @@
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
-use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
@@ -111,16 +110,10 @@ class Advanced_Tab extends Widget_Base {
 		$repeater->add_control(
 			'description',
 			[
-				'type' => Controls_Manager::WYSIWYG,
+				'type' => Controls_Manager::TEXTAREA,
 				'label' => __( 'Description', 'thrivedesk' ),
 				'default' => __( 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'thrivedesk' ),
 				'placeholder' => __( 'Type Tab Description', 'thrivedesk' ),
-				'condition' => [
-					'source' => 'editor',
-				],
-				'dynamic' => [
-					'active' => true,
-				]
 			]
 		);
 
@@ -137,51 +130,12 @@ class Advanced_Tab extends Widget_Base {
 		);
 
 		$repeater->add_control(
-			'source',
+			'content',
 			[
-				'type' => Controls_Manager::SELECT,
-				'label' => __( 'Content Source', 'thrivedesk' ),
-				'default' => 'editor',
-				'separator' => 'before',
-				'options' => [
-					'editor' => __( 'Editor', 'thrivedesk' ),
-					'template' => __( 'Template', 'thrivedesk' ),
-				]
-			]
-		);
-
-		$repeater->add_control(
-			'image',
-			[
-				'label' => __( 'Image', 'thrivedesk' ),
-				'show_label' => false,
-				'type' => Controls_Manager::MEDIA,
-				'default' => [
-					'url' => Utils::get_placeholder_image_src(),
-				],
-				'condition' => [
-					'source' => 'editor',
-				],
-				'dynamic' => [
-					'active' => true,
-				]
-			]
-		);
-
-		$repeater->add_control(
-			'template',
-			[
-				'label' => __( 'Section Template', 'thrivedesk' ),
-				'placeholder' => __( 'Select a section template for as tab content', 'thrivedesk' ),
-				'description' => sprintf( __( 'Wondering what is section template or need to create one? Please click %1$shere%2$s ', 'thrivedesk' ),
-					'<a target="_blank" href="' . esc_url( admin_url( '/edit.php?post_type=elementor_library&tabs_group=library&elementor_library_type=section' ) ) . '">',
-					'</a>'
-				),
-				'type' => Controls_Manager::SELECT2,
-				'label_block' => true,
-				'condition' => [
-					'source' => 'template',
-				]
+				'type' => Controls_Manager::WYSIWYG,
+				'label' => __( 'Description', 'thrivedesk' ),
+				'default' => __( 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'thrivedesk' ),
+				'placeholder' => __( 'Type Tab Description', 'thrivedesk' )
 			]
 		);
 
@@ -195,19 +149,11 @@ class Advanced_Tab extends Widget_Base {
 				'default' => [
 					[
 						'title' => 'Tab 1',
-						'source' => 'editor',
 						'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore <br><br>et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-						'image' => [
-							'url' => Utils::get_placeholder_image_src()
-						]
 					],
 					[
 						'title' => 'Tab 2',
-						'source' => 'editor',
 						'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore <br><br>et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-						'image' => [
-							'url' => Utils::get_placeholder_image_src()
-						]
 					]
 				]
 			]
@@ -506,15 +452,6 @@ class Advanced_Tab extends Widget_Base {
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name' => 'nav_heading_text_shadow',
-				'label' => __( 'Text Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .tab-heading h3',
-			]
-		);
-
 		$this->add_responsive_control(
 			'nav_heading_title_spacing',
 			[
@@ -544,15 +481,6 @@ class Advanced_Tab extends Widget_Base {
 				'name' => 'nav_heading_desc_typography',
 				'selector' => '{{WRAPPER}} .tab-heading p',
 				'scheme' => Typography::TYPOGRAPHY_2,
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name' => 'nav_heading_desc_text_shadow',
-				'label' => __( 'Text Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .tab-heading p',
 			]
 		);
 
@@ -618,23 +546,14 @@ class Advanced_Tab extends Widget_Base {
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name' => 'nav_text_shadow',
-				'label' => __( 'Text Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-text h4, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title .td-tab__title-text h4',
-			]
-		);
-
-		$this->add_control(
+		$this->add_responsive_control(
 			'nav_title_spacing',
 			[
 				'label' => __( 'Spacing', 'thrivedesk' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => ['px'],
 				'selectors' => [
-					'{{WRAPPER}} .td-tabs.enable-accordian .td-tabs__nav > .td-tab__title.td-tab--active .td-tab__title-text h4,{{WRAPPER}} .td-tabs.disable-accordian .td-tabs__nav > .td-tab__title .td-tab__title-text h4' => 'margin-bottom: {{SIZE}}px;'
+					'{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title .td-tab__title-text h4, {{WRAPPER}} .td-tabs .td-tabs__content > .td-tab__title .td-tab__title-text h4' => 'margin-bottom: {{SIZE}}px;'
 				],
 			]
 		);
@@ -654,7 +573,7 @@ class Advanced_Tab extends Widget_Base {
 				'label' => __( 'Color', 'thrivedesk' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-desc' => 'color: {{VALUE}};'
+					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-desc, {{WRAPPER}} .td-tabs .td-tabs__content > .td-tab__title .td-tab__title-desc' => 'color: {{VALUE}};'
 				]
 			]
 		);
@@ -665,7 +584,7 @@ class Advanced_Tab extends Widget_Base {
 				'label' => __( 'Active Color', 'thrivedesk' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title.td-tab--active .td-tab__title-desc' => 'color: {{VALUE}};'
+					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title.td-tab--active .td-tab__title-desc, {{WRAPPER}} .td-tabs .td-tabs__content > .td-tab__title.td-tab--active .td-tab__title-desc' => 'color: {{VALUE}};'
 				]
 			]
 		);
@@ -677,15 +596,6 @@ class Advanced_Tab extends Widget_Base {
 				'separator' =>'before',
 				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-desc, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title .td-tab__title-desc, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-desc p, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title .td-tab__title-desc p',
 				'scheme' => Typography::TYPOGRAPHY_2,
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name' => 'nav_desc_text_shadow',
-				'label' => __( 'Text Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-desc, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title .td-tab__title-desc, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title .td-tab__title-desc p, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title .td-tab__title-desc p',
 			]
 		);
 
@@ -701,13 +611,13 @@ class Advanced_Tab extends Widget_Base {
 		$this->add_responsive_control(
 			'nav_tab_width',
 			[
-				'label' => __( 'Width', 'thrivedesk' ),
+				'label' => __( 'Nav Area Width', 'thrivedesk' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
-						'max' => 300,
+						'max' => 1000,
 						'step' => 1,
 					],
 					'%' => [
@@ -791,53 +701,16 @@ class Advanced_Tab extends Widget_Base {
 			[
 				'name' => 'nav_bg_bg',
 				'types' => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .td-tabs--nav-left > .td-tabs__nav > .td-tab__title, {{WRAPPER}} .td-tabs--nav-right > .td-tabs__nav > .td-tab__title',
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title, {{WRAPPER}} .td-tabs__content>.td-tab__title'
 			]
 		);
 
-		$this->add_control(
-			'nav_border_style',
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
 			[
-				'label' => __( 'Border Style', 'thrivedesk' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'none' => __( 'None', 'thrivedesk' ),
-					'solid' => __( 'Solid', 'thrivedesk' ),
-					'double' => __( 'Double', 'thrivedesk' ),
-					'dotted' => __( 'Dotted', 'thrivedesk' ),
-					'dashed' => __( 'Dashed', 'thrivedesk' ),
-				],
-				'default' => 'none',
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'nav_border_width',
-			[
-				'label' => __( 'Border Width', 'thrivedesk' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px' ],
-				'condition' => [
-					'nav_border_style!' => 'none'
-				],
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'nav_border_color',
-			[
-				'label' => __( 'Border Color', 'thrivedesk' ),
-				'type' => Controls_Manager::COLOR,
-				'condition' => [
-					'nav_border_style!' => 'none'
-				],
-				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title' => 'border-style: {{nav_border_style.VALUE}}; border-color: {{VALUE}};',
-					'(tablet+){{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title' => 'border-width: {{nav_border_width.TOP}}px {{nav_border_width.RIGHT}}px {{nav_border_width.BOTTOM}}px {{nav_border_width.LEFT}}px;',
-				],
-				'default' => '#e8e8e8',
+				'name' => 'nav_border',
+				'label' => __( 'Border', 'thrivedesk' ),
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title, {{WRAPPER}} .td-tabs__content>.td-tab__title'
 			]
 		);
 
@@ -846,7 +719,7 @@ class Advanced_Tab extends Widget_Base {
 			[
 				'name' => 'nav_box_shadow',
 				'label' => __( 'Box Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title',
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title, {{WRAPPER}} .td-tabs__content>.td-tab__title'
 			]
 		);
 
@@ -863,53 +736,16 @@ class Advanced_Tab extends Widget_Base {
 			[
 				'name' => 'nav_hover_bg_bg',
 				'types' => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .td-tabs--nav-left > .td-tabs__nav > .td-tab__title, {{WRAPPER}} .td-tabs--nav-right > .td-tabs__nav > .td-tab__title:hover',
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title:hover, {{WRAPPER}} .td-tabs__content>.td-tab__title:hover'
 			]
 		);
 
-		$this->add_control(
-			'nav_hover_border_style',
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
 			[
-				'label' => __( 'Border Style', 'thrivedesk' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'none' => __( 'None', 'thrivedesk' ),
-					'solid' => __( 'Solid', 'thrivedesk' ),
-					'double' => __( 'Double', 'thrivedesk' ),
-					'dotted' => __( 'Dotted', 'thrivedesk' ),
-					'dashed' => __( 'Dashed', 'thrivedesk' ),
-				],
-				'default' => 'none',
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'nav_hover_border_width',
-			[
-				'label' => __( 'Border Width', 'thrivedesk' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px' ],
-				'condition' => [
-					'nav_hover_border_style!' => 'none'
-				],
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'nav_hover_border_color',
-			[
-				'label' => __( 'Border Color', 'thrivedesk' ),
-				'type' => Controls_Manager::COLOR,
-				'condition' => [
-					'nav_hover_border_style!' => 'none'
-				],
-				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title:hover' => 'border-style: {{nav_border_style.VALUE}}; border-color: {{VALUE}};',
-					'(tablet+){{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title:hover' => 'border-width: {{nav_border_width.TOP}}px {{nav_border_width.RIGHT}}px {{nav_border_width.BOTTOM}}px {{nav_border_width.LEFT}}px;',
-				],
-				'default' => '#e8e8e8',
+				'name' => 'nav_hover_border',
+				'label' => __( 'Border', 'thrivedesk' ),
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title:hover, {{WRAPPER}} .td-tabs__content>.td-tab__title:hover'
 			]
 		);
 
@@ -918,7 +754,7 @@ class Advanced_Tab extends Widget_Base {
 			[
 				'name' => 'nav_hover_box_shadow',
 				'label' => __( 'Box Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title:hover',
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title:hover, {{WRAPPER}} .td-tabs__content>.td-tab__title:hover'
 			]
 		);
 
@@ -935,53 +771,16 @@ class Advanced_Tab extends Widget_Base {
 			[
 				'name' => 'nav_active_bg_bg',
 				'types' => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .td-tabs--nav-left > .td-tabs__nav > .td-tab__title.td-tab--active, {{WRAPPER}} .td-tabs--nav-right > .td-tabs__nav > .td-tab__title.td-tab--active',
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title.td-tab--active, {{WRAPPER}} .td-tab__title.td-tab--active'
 			]
 		);
 
-		$this->add_control(
-			'nav_active_border_style',
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
 			[
-				'label' => __( 'Border Style', 'thrivedesk' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'none' => __( 'None', 'thrivedesk' ),
-					'solid' => __( 'Solid', 'thrivedesk' ),
-					'double' => __( 'Double', 'thrivedesk' ),
-					'dotted' => __( 'Dotted', 'thrivedesk' ),
-					'dashed' => __( 'Dashed', 'thrivedesk' ),
-				],
-				'default' => 'none',
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'nav_active_border_width',
-			[
-				'label' => __( 'Border Width', 'thrivedesk' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px' ],
-				'condition' => [
-					'nav_active_border_style!' => 'none'
-				],
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'nav_active_border_color',
-			[
-				'label' => __( 'Border Color', 'thrivedesk' ),
-				'type' => Controls_Manager::COLOR,
-				'condition' => [
-					'nav_active_border_style!' => 'none'
-				],
-				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__title.td-tab--active, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title.td-tab--active' => 'border-style: {{nav_active_border_style.VALUE}}; border-color: {{VALUE}};',
-					'(tablet+){{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title.td-tab--active' => 'border-width: {{nav_active_border_width.TOP}}px {{nav_active_border_width.RIGHT}}px {{nav_active_border_width.BOTTOM}}px {{nav_active_border_width.LEFT}}px;',
-				],
-				'default' => '#e8e8e8',
+				'name' => 'nav_active_border',
+				'label' => __( 'Border', 'thrivedesk' ),
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title.td-tab--active, {{WRAPPER}} .td-tab__title.td-tab--active'
 			]
 		);
 
@@ -990,7 +789,7 @@ class Advanced_Tab extends Widget_Base {
 			[
 				'name' => 'nav_active_box_shadow',
 				'label' => __( 'Box Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav > .td-tab__title:hover',
+				'selector' => '{{WRAPPER}} .td-tabs .td-tabs__nav > .td-tab__title.td-tab--active, {{WRAPPER}} .td-tab__title.td-tab--active'
 			]
 		);
 
@@ -1044,14 +843,14 @@ class Advanced_Tab extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'nav_icon_size',
 			[
 				'label' => __( 'Size', 'thrivedesk' ),
 				'type' => Controls_Manager::SLIDER,
 				'size_units' => ['px'],
 				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav .td-tab__title-icon' => 'font-size: {{SIZE}}px;',
+					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__nav .td-tab__title-icon, {{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content .td-tab__title-icon' => 'font-size: {{SIZE}}px;',
 				],
 			]
 		);
@@ -1059,18 +858,121 @@ class Advanced_Tab extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'_section_tab_image',
+			'_section_tab_content',
 			[
-				'label' => __( 'Image', 'thrivedesk' ),
+				'label' => __( 'Content', 'thrivedesk' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
-			'_heading_image',
+			'_heading_content_text',
+			[
+				'label' => __( 'Text', 'thrivedesk' ),
+				'type' => Controls_Manager::HEADING,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name' => 'tab_content_typography',
+				'selector' => '{{WRAPPER}} .td-tab-content-wrap',
+				'scheme' => Typography::TYPOGRAPHY_2,
+			]
+		);
+
+		$this->add_control(
+			'tab_content_color',
+			[
+				'label' => __( 'Color', 'thrivedesk' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .td-tab-content-wrap' => 'color: {{VALUE}};'
+				]
+			]
+		);
+
+		$this->add_control(
+			'_heading_content_img',
 			[
 				'label' => __( 'Image', 'thrivedesk' ),
 				'type' => Controls_Manager::HEADING,
+				'separator' => 'before'
+			]
+		);
+
+		$this->add_responsive_control(
+			'tab_img_width',
+			[
+				'label' => __( 'Width', 'thrivedesk' ),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+						'step' => 1,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .td-tab-content-wrap img' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'tab_img_margin',
+			[
+				'label' => __( 'Margin', 'thrivedesk' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors' => [
+					'{{WRAPPER}} .td-tab-content-wrap img' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name' => 'tab_img_border',
+				'label' => __( 'Border', 'thrivedesk' ),
+				'selector' => '{{WRAPPER}} .td-tab-content-wrap img',
+			]
+		);
+
+		$this->add_control(
+			'tab_img_border_radius',
+			[
+				'label' => __( 'Border Radius', 'thrivedesk' ),
+				'type' => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors' => [
+					'{{WRAPPER}} .td-tab-content-wrap img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			[
+				'name' => 'tab_img_box_shadow',
+				'label' => __( 'Box Shadow', 'thrivedesk' ),
+				'selector' => '{{WRAPPER}} .td-tab-content-wrap img',
+			]
+		);
+
+		$this->add_control(
+			'_heading_content_global',
+			[
+				'label' => __( 'Global', 'thrivedesk' ),
+				'type' => Controls_Manager::HEADING,
+				'separator' => 'before'
 			]
 		);
 
@@ -1095,72 +997,10 @@ class Advanced_Tab extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .td-tab__content .td-tab-image' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .td-tab-content-wrap' => 'text-align: {{VALUE}};',
 				]
 			]
         );
-
-		$this->add_responsive_control(
-			'tab_img_width',
-			[
-				'label' => __( 'Width', 'thrivedesk' ),
-				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 1000,
-						'step' => 1,
-					],
-					'%' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .td-tab__content .td-tab-image img' => 'width: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			[
-				'name' => 'content_image_border',
-				'label' => __( 'Border', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tab__content .td-tab-image img',
-			]
-		);
-
-		$this->add_control(
-			'image_border_radius',
-			[
-				'label' => __( 'Border Radius', 'thrivedesk' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__content img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Box_Shadow::get_type(),
-			[
-				'name' => 'image_box_shadow',
-				'label' => __( 'Box Shadow', 'thrivedesk' ),
-				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__content img',
-			]
-		);
-
-		$this->add_control(
-			'_heading_image_wrap',
-			[
-				'label' => __( 'Image Wrap', 'thrivedesk' ),
-				'type' => Controls_Manager::HEADING,
-				'separator' => 'before'
-			]
-		);
 
 		$this->add_responsive_control(
 			'content_padding',
@@ -1174,49 +1014,12 @@ class Advanced_Tab extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'content_border_style',
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
 			[
-				'label' => __( 'Border Style', 'thrivedesk' ),
-				'type' => Controls_Manager::SELECT,
-				'options' => [
-					'none' => __( 'None', 'thrivedesk' ),
-					'solid' => __( 'Solid', 'thrivedesk' ),
-					'double' => __( 'Double', 'thrivedesk' ),
-					'dotted' => __( 'Dotted', 'thrivedesk' ),
-					'dashed' => __( 'Dashed', 'thrivedesk' ),
-				],
-				'default' => 'none',
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'content_border_width',
-			[
-				'label' => __( 'Border Width', 'thrivedesk' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px' ],
-				'condition' => [
-					'content_border_style!' => 'none'
-				],
-				'render_type' => 'ui',
-			]
-		);
-
-		$this->add_control(
-			'content_border_color',
-			[
-				'label' => __( 'Border Color', 'thrivedesk' ),
-				'type' => Controls_Manager::COLOR,
-				'condition' => [
-					'content_border_style!' => 'none'
-				],
-				'selectors' => [
-					'{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__content' => 'border-style: {{content_border_style.VALUE}}; border-color: {{VALUE}};',
-					'(tablet+){{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__content' => 'border-width: {{content_border_width.TOP}}px {{content_border_width.RIGHT}}px {{content_border_width.BOTTOM}}px {{content_border_width.LEFT}}px;',
-				],
-				'default' => '#e8e8e8',
+				'name' => 'tab_content_border',
+				'label' => __( 'Border', 'thrivedesk' ),
+				'selector' => '{{WRAPPER}} .td-tabs-{{ID}} > .td-tabs__content > .td-tab__content'
 			]
 		);
 
@@ -1306,12 +1109,8 @@ class Advanced_Tab extends Widget_Base {
 				foreach ( $tabs as $index => $item ) :
 					$tab_count = $index + 1;
 
-					if ( $item['source'] === 'editor' ) {
-						$tab_content_setting_key = $this->get_repeater_setting_key( 'editor', 'tabs', $index );
-						$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
-					} else {
-						$tab_content_setting_key = $this->get_repeater_setting_key( 'section', 'tabs', $index );
-					}
+					$tab_content_setting_key = $this->get_repeater_setting_key( 'editor', 'tabs', $index );
+					$this->add_inline_editing_attributes( $tab_content_setting_key, 'advanced' );
 
 					$tab_title_mobile_setting_key = $this->get_repeater_setting_key( 'tab_title_mobile', 'tabs', $tab_count );
 
@@ -1329,27 +1128,26 @@ class Advanced_Tab extends Widget_Base {
 						'role' => 'tab',
 					] );
 					?>
-
 					
 					<div <?php echo $this->get_render_attribute_string( $tab_title_mobile_setting_key ); ?>>
 						<?php if ( ! empty( $item['icon'] ) && ! empty( $item['icon']['value'] ) ) : ?>
-						<span class="td-tab__title-icon"></span>
+							<div class="td-tab__title-icon">
+								<?php Icons_Manager::render_icon( $item['icon'], [ 'aria-hidden' => 'true' ] ); ?>
+							</div>
 						<?php endif; ?>
-						<span class="td-tab__title-text"><?php echo  $item['title']; ?></span>
-						<span class="td-tab__title-desc"><?php echo $item['description'];?></span>
+						<div class="td-tab__title-text">
+							<h4><?php echo $item['title']; ?>
+							<?php if($settings['enable_accordian_switcher'] == 'yes'):?>
+							<span class="arrow-icon"><i class="fas fa-angle-down"></i><i class="fas fa-angle-up"></i></span>
+							<?php endif;?>
+							</h4>
+							<span class="td-tab__title-desc"><?php echo $item['description'];?></span>
+						</div>
 					</div>
 					<div <?php echo $this->get_render_attribute_string( $tab_content_setting_key ); ?>>
-					<?php
-						if ( $item['source'] === 'editor' ) :
-					?>
-						<div class="td-tab-image">
-							<img src="<?php echo $item['image']['url'];?>" alt="">
+						<div class="td-tab-content-wrap">
+							<?php echo $item['content'];?>
 						</div>
-						<?php
-						elseif ( $item['source'] === 'template' && $item['template'] ) :
-							echo '';
-						endif;
-						?>
 					</div>
 				<?php endforeach; ?>
 			</div>
