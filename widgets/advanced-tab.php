@@ -199,12 +199,32 @@ class Advanced_Tab extends Widget_Base {
 		$this->add_control(
 			'enable_tab_heading_switcher',
 			[
-				'label' => __( 'Show Heading', 'thrivedesk' ),
+				'label' => __( 'Show', 'thrivedesk' ),
 				'type' => Controls_Manager::SWITCHER,
-				'label_on' => __( 'Show', 'thrivedesk' ),
-				'label_off' => __( 'Hide', 'thrivedesk' ),
+				'label_on' => __( 'Yes', 'thrivedesk' ),
+				'label_off' => __( 'No', 'thrivedesk' ),
 				'return_value' => 'yes',
 				'default' => 'no',
+			]
+		);
+
+		$this->add_control(
+			'_enable_arrows_title',
+			[
+				'label' => __( 'Arrow', 'thrivedesk' ),
+				'type' => Controls_Manager::HEADING,
+			]
+		);
+
+		$this->add_control(
+			'enable_tab_arrow_switcher',
+			[
+				'label' => __( 'Show', 'thrivedesk' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'thrivedesk' ),
+				'label_off' => __( 'No', 'thrivedesk' ),
+				'return_value' => 'yes',
+				'default' => 'yes',
 			]
 		);
 
@@ -1090,6 +1110,7 @@ class Advanced_Tab extends Widget_Base {
 		$this->add_render_attribute( 'tabs_wrapper', 'class', [
 			'td-tabs-' . $this->get_id(),
 			'td-tabs', $settings['enable_accordian_switcher'] == 'yes' ? 'enable-accordian':'disable-accordian',
+			$settings['enable_tab_arrow_switcher'] == 'yes' ? 'enable-arrow':'disable-arrow',
 			'td-tabs--nav-' . $settings['nav_position'],
 			in_array( $settings['nav_position'], ['top', 'bottom'] ) ? 'td-tabs--nav-' . $settings['nav_align_x'] : '',
 			in_array( $settings['nav_position'], ['left', 'right'] ) ? 'td-tabs--nav-' . $settings['nav_align_y'] : '',
