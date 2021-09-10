@@ -77,6 +77,10 @@
     transition: 0.5s;
 }
 
+.td-tabs.disable-arrow .td-tab__title .arrow-icon {
+    display: none;
+}
+
 @media (min-width:768px) {
 
     .td-tabs--nav-bottom.td-tabs--nav-x-justify>.td-tabs__nav>.td-tab__title,
