@@ -39,6 +39,10 @@
     margin-bottom: 0;
 }
 
+.td-tabs .td-tab__title .td-tab__title-text h4 {
+    margin-top: 0;
+}
+
 .td-tabs.enable-accordian .td-tab__title h4 .fa-angle-up,
 .td-tabs.enable-accordian .td-tab__title.td-tab--active h4 .fa-angle-down {
     display: none;
@@ -52,11 +56,22 @@
 .td-tabs.enable-accordian .td-tab__title .arrow-icon {
     display: inline-block;
     margin-left: 10px;
-
 }
 
-.td-tabs .td-tab__title .td-tab__title-text h4 {
-    margin-top: 0;
+.td-tabs.enable-accordian .td-tab__title .td-tab__title-text h4 {
+    margin-top: 0
+}
+
+.td-tabs .td-tab__title-icon>i {
+    display: inline-block
+}
+
+.td-tabs__content>.td-tab__title {
+    display: flex
+}
+
+.td-tabs__content>.td-tab__title{
+    transition: 0.5s;
 }
 
 @media (min-width:768px) {
@@ -171,7 +186,8 @@
     padding: 20px 25px;
     font-weight: 700;
     line-height: 1;
-    cursor: pointer
+    cursor: pointer;
+    transition: 0.5s;
 }
 
 .td-tabs>.td-tabs__nav>.td-tab__title .td-tab__title-text {
@@ -205,6 +221,10 @@
 .td-tabs--nav-left.td-tabs>.td-tabs__nav>.td-tab__title--desktop,
 .td-tabs--nav-right.td-tabs>.td-tabs__nav>.td-tab__title--desktop {
     padding: 25px 20px;
+    transition: all 0.5s;
+}
+
+.td-tabs>.td-tab__content>.td-tab__title {
     transition: all 0.5s;
 }
 
